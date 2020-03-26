@@ -9,8 +9,8 @@
     <version>1.0</version>
 
     <name>tio-http-server-spring-boot-starter</name>
-    <description>git add README.md</description>
-    <url>https://github.com/yanceking/exceptionmessageteam-spring-boot-starter</url>
+    <description>Tio Http 服务的 spring-boot-starter</description>
+    <url>https://github.com/yanceking/tio-http-server-spring-boot-starter</url>
 
     <licenses>
         <license>
@@ -21,8 +21,8 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/yanceking/exceptionmessageteam-spring-boot-starter</url>
-        <connection>https://github.com/yanceking/exceptionmessageteam-spring-boot-starter.git</connection>
+        <url>https://github.com/yanceking/tio-http-server-spring-boot-starter</url>
+        <connection>https://github.com/yanceking/tio-http-server-spring-boot-starter.git</connection>
     </scm>
 
     <parent>
