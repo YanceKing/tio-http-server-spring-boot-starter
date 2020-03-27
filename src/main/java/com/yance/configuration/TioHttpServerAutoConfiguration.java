@@ -1,6 +1,8 @@
-package com.yance.Configuration;
+package com.yance.configuration;
 
 import com.yance.properties.TioHttpServerProperties;
+import com.yance.routes.CustomRoutes;
+import com.yance.utils.TioSpring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -42,6 +44,7 @@ public class TioHttpServerAutoConfiguration {
 
     /**
      * HttpConfig
+     *
      * @param properties 配置项
      * @return HttpConfig
      * @throws IOException 异常
@@ -76,7 +79,37 @@ public class TioHttpServerAutoConfiguration {
     }
 
     /**
+     * 获取TioSpring对象
+     * <p>
+     * 注:普通类获取spring容器中的对象调用此方法获取
+     *
+     * @return 返回TioSpring对象
+     */
+    @Bean
+    public TioSpring tioSpring() {
+        return new TioSpring();
+    }
+
+    /**
+     * http请求处理器以及路由处理
+     *
+     * @param httpConfig 系统配置项
+     * @param properties 自定义配置项
+     * @param tioSpring TioSpring对象
+     * @return Http处理器
+     * @throws Exception 异常
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public HttpRequestHandler httpRequestHandler(HttpConfig httpConfig, TioHttpServerProperties properties,TioSpring tioSpring) throws Exception {
+        //DefaultHttpRequestHandler defaultHttpRequestHandler1 = new DefaultHttpRequestHandler(httpConfig, properties.getComponentScan());
+        DefaultHttpRequestHandler defaultHttpRequestHandler = new DefaultHttpRequestHandler(httpConfig,new CustomRoutes(CustomRoutes.toPackages(properties.getComponentScan()),tioSpring));
+        return defaultHttpRequestHandler;
+    }
+
+    /**
      * 启动项
+     *
      * @return TioHttpServerBootstrap
      */
     @Bean
@@ -90,25 +123,12 @@ public class TioHttpServerAutoConfiguration {
 
     /**
      * ServerTioConfig对象
+     *
      * @param bootstrap TioHttpServerBootstrap
      * @return ServerTioConfig对象
      */
     @Bean
     public ServerTioConfig serverGroupContext(TioHttpServerBootstrap bootstrap) {
         return bootstrap.getServerTioConfig();
-    }
-
-    /**
-     * http请求处理器以及路由处理
-     * @param httpConfig 系统配置项
-     * @param properties 自定义配置项
-     * @return Http处理器
-     * @throws Exception 异常
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public HttpRequestHandler httpRequestHandler(HttpConfig httpConfig, TioHttpServerProperties properties) throws Exception {
-        DefaultHttpRequestHandler defaultHttpRequestHandler = new DefaultHttpRequestHandler(httpConfig, properties.getComponentScan());
-        return defaultHttpRequestHandler;
     }
 }

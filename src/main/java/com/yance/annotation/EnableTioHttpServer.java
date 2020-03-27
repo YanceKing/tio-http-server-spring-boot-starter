@@ -1,6 +1,6 @@
 package com.yance.annotation;
 
-import com.yance.Configuration.TioHttpServerMarkerConfiguration;
+import com.yance.configuration.TioHttpServerMarkerConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

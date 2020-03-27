@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yance.Configuration.TioHttpServerAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.yance.configuration.TioHttpServerAutoConfiguration

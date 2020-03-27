@@ -1,4 +1,4 @@
-package com.yance.Configuration;
+package com.yance.configuration;
 
 
 import com.yance.properties.TioHttpServerProperties;
