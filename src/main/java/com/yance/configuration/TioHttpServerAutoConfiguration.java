@@ -1,8 +1,8 @@
 package com.yance.configuration;
 
+import com.yance.handler.CustomDefaultHttpRequestHandler;
 import com.yance.properties.TioHttpServerProperties;
 import com.yance.routes.CustomRoutes;
-import com.yance.utils.TioSpring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -14,7 +14,6 @@ import org.tio.core.intf.GroupListener;
 import org.tio.core.stat.IpStatListener;
 import org.tio.http.common.HttpConfig;
 import org.tio.http.common.handler.HttpRequestHandler;
-import org.tio.http.server.handler.DefaultHttpRequestHandler;
 import org.tio.server.ServerTioConfig;
 import org.tio.server.intf.ServerAioListener;
 
@@ -86,8 +85,8 @@ public class TioHttpServerAutoConfiguration {
      * @return 返回TioSpring对象
      */
     @Bean
-    public TioSpring tioSpring() {
-        return new TioSpring();
+    public TioSpringApplication tioSpring() {
+        return new TioSpringApplication();
     }
 
     /**
@@ -95,16 +94,17 @@ public class TioHttpServerAutoConfiguration {
      *
      * @param httpConfig 系统配置项
      * @param properties 自定义配置项
-     * @param tioSpring TioSpring对象
+     * @param tioSpring  TioSpring对象
      * @return Http处理器
      * @throws Exception 异常
      */
     @Bean
     @ConditionalOnMissingBean
-    public HttpRequestHandler httpRequestHandler(HttpConfig httpConfig, TioHttpServerProperties properties,TioSpring tioSpring) throws Exception {
-        //DefaultHttpRequestHandler defaultHttpRequestHandler1 = new DefaultHttpRequestHandler(httpConfig, properties.getComponentScan());
-        DefaultHttpRequestHandler defaultHttpRequestHandler = new DefaultHttpRequestHandler(httpConfig,new CustomRoutes(CustomRoutes.toPackages(properties.getComponentScan()),tioSpring));
-        return defaultHttpRequestHandler;
+    public HttpRequestHandler httpRequestHandler(HttpConfig httpConfig, TioHttpServerProperties properties, TioSpringApplication tioSpring) throws Exception {
+        //DefaultHttpRequestHandler defaultHttpRequestHandler = new DefaultHttpRequestHandler(httpConfig, properties.getComponentScan());
+        //DefaultHttpRequestHandler defaultHttpRequestHandler = new DefaultHttpRequestHandler(httpConfig,new CustomRoutes(CustomRoutes.toPackages(properties.getComponentScan()),tioSpring));
+        CustomDefaultHttpRequestHandler customDefaultHttpRequestHandler = new CustomDefaultHttpRequestHandler(httpConfig, new CustomRoutes(CustomRoutes.toPackages(properties.getComponentScan()), tioSpring));
+        return customDefaultHttpRequestHandler;
     }
 
     /**

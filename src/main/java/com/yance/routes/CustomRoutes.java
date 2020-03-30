@@ -4,7 +4,7 @@ import com.esotericsoftware.reflectasm.MethodAccess;
 import com.thoughtworks.paranamer.BytecodeReadingParanamer;
 import com.thoughtworks.paranamer.Paranamer;
 import com.yance.annotation.TioAutowired;
-import com.yance.utils.TioSpring;
+import com.yance.configuration.TioSpringApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tio.http.server.annotation.RequestPath;
@@ -31,9 +31,9 @@ import java.util.Set;
 public class CustomRoutes extends Routes {
     private static Logger log = LoggerFactory.getLogger(CustomRoutes.class);
     private StringBuilder errorStr;
-    private TioSpring tioSpring;
+    private TioSpringApplication tioSpring;
 
-    public CustomRoutes(String[] scanPackages, TioSpring tioSpring) {
+    public CustomRoutes(String[] scanPackages, TioSpringApplication tioSpring) {
         super(scanPackages, null);
         this.errorStr = new StringBuilder();
         this.tioSpring = tioSpring;

@@ -1,4 +1,4 @@
-package com.yance.utils;
+package com.yance.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +11,9 @@ import org.springframework.context.ApplicationContextAware;
  *
  * @author yance
  */
-public class TioSpring implements ApplicationContextAware {
+public class TioSpringApplication implements ApplicationContextAware {
 
-    private static Logger log = LoggerFactory.getLogger(TioSpring.class);
+    private static Logger log = LoggerFactory.getLogger(TioSpringApplication.class);
 
     private static ApplicationContext applicationContext = null;
 
