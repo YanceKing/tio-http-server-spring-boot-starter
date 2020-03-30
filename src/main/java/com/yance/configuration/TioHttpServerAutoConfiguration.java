@@ -74,6 +74,12 @@ public class TioHttpServerAutoConfiguration {
         httpConfig.setAppendRequestHeaderString(properties.isAppendRequestHeaderString());
         httpConfig.setAllowDomains(properties.getAllowDomains());
         httpConfig.setMaxLengthOfMultiBody(properties.getMaxLengthOfMultiBody());
+        httpConfig.setSessionRateLimiter(properties.getSessionRateLimiter());
+        httpConfig.setSessionIdGenerator(properties.getSessionIdGenerator());
+        httpConfig.setHttpRequestHandler(properties.getHttpRequestHandler());
+        httpConfig.setRespForBlackIp(properties.getRespForBlackIp());
+        httpConfig.setFreemarkerConfig(properties.getFreemarkerConfig());
+        httpConfig.setSessionStore(properties.getSessionStore());
         return httpConfig;
     }
 

@@ -1,6 +1,12 @@
 package com.yance.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.tio.http.common.HttpResponse;
+import org.tio.http.common.handler.HttpRequestHandler;
+import org.tio.http.common.session.id.ISessionIdGenerator;
+import org.tio.http.common.session.limiter.SessionRateLimiter;
+import org.tio.http.common.view.freemarker.FreemarkerConfig;
+import org.tio.utils.cache.ICache;
 import org.tio.utils.time.Time;
 
 /**
@@ -83,7 +89,22 @@ public class TioHttpServerProperties {
 
     private String sslPassword;
 
+    /**
+     * 扫描路径，最好是启动类根路径，全盘扫描
+     */
     private Class[] ComponentScan;
+
+    private SessionRateLimiter sessionRateLimiter;
+
+    private ISessionIdGenerator sessionIdGenerator;
+
+    private HttpRequestHandler httpRequestHandler;
+
+    private HttpResponse respForBlackIp = null;
+
+    private FreemarkerConfig freemarkerConfig = null;
+
+    private ICache sessionStore = null;
 
     public Integer getPort() {
         return port;
@@ -339,5 +360,53 @@ public class TioHttpServerProperties {
 
     public void setComponentScan(Class[] componentScan) {
         ComponentScan = componentScan;
+    }
+
+    public SessionRateLimiter getSessionRateLimiter() {
+        return sessionRateLimiter;
+    }
+
+    public void setSessionRateLimiter(SessionRateLimiter sessionRateLimiter) {
+        this.sessionRateLimiter = sessionRateLimiter;
+    }
+
+    public ISessionIdGenerator getSessionIdGenerator() {
+        return sessionIdGenerator;
+    }
+
+    public void setSessionIdGenerator(ISessionIdGenerator sessionIdGenerator) {
+        this.sessionIdGenerator = sessionIdGenerator;
+    }
+
+    public HttpRequestHandler getHttpRequestHandler() {
+        return httpRequestHandler;
+    }
+
+    public void setHttpRequestHandler(HttpRequestHandler httpRequestHandler) {
+        this.httpRequestHandler = httpRequestHandler;
+    }
+
+    public HttpResponse getRespForBlackIp() {
+        return respForBlackIp;
+    }
+
+    public void setRespForBlackIp(HttpResponse respForBlackIp) {
+        this.respForBlackIp = respForBlackIp;
+    }
+
+    public FreemarkerConfig getFreemarkerConfig() {
+        return freemarkerConfig;
+    }
+
+    public void setFreemarkerConfig(FreemarkerConfig freemarkerConfig) {
+        this.freemarkerConfig = freemarkerConfig;
+    }
+
+    public ICache getSessionStore() {
+        return sessionStore;
+    }
+
+    public void setSessionStore(ICache sessionStore) {
+        this.sessionStore = sessionStore;
     }
 }
